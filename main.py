@@ -11,9 +11,12 @@ API_KEY = "8a0cfb1927e2b85bdd09d8f0ef76bf61"
 
 exercise_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
 sheety_endpoint = "https://api.sheety.co/e02e90cc81d3e6b66814fe14bef27a3e/trainingWorkouts/workouts"
-
-
+sheety_bearer_token = "sfsafsffsfwer234sdfe34tdfg34tsdfgs36rdhfdhsdfgJHGHJFGKJUY#KJFjgsdfjksdfhk"
 exercise_text = input("Tell me which exercises you did: ")
+
+bearer_headers = {
+    "Authorization": f"Bearer {sheety_bearer_token}"
+}
 
 headers = {
     "x-app-id": APP_ID,
@@ -58,10 +61,10 @@ sheety_parameters = {
 }
 
 
-response = requests.post(url=sheety_endpoint, json=sheety_parameters)
-workouts = response.json()
-print(workouts)
+response = requests.post(
+    url=sheety_endpoint, json=sheety_parameters, headers=bearer_headers)
 
-response = requests.get(url=sheety_endpoint)
-workouts = response.json()["workouts"]
+
+response = requests.get(url=sheety_endpoint, headers=bearer_headers)
+workouts = response.json()
 print(workouts)
